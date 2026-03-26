@@ -1,13 +1,17 @@
+from django.views.generic import TemplateView
+import random
+
 class JogoView(TemplateView):
-    # O Django já olha dentro de 'templates' de cada app automaticamente
-    template_name = 'tabuleiro.html' 
+    template_name = 'tabuleiro.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Lista de ícones (emojis) para o jogo
         icones = ['🐍', '⭐', '🚀', '🔥', '💻', '🎮', '🍕', '🌈']
-        # Criar pares e embaralhar
-        import random
+        
+        # Criamos os pares, duplicando a lista e embaralhando
         cartas = icones * 2
         random.shuffle(cartas)
+        
         context['cartas'] = cartas
         return context
