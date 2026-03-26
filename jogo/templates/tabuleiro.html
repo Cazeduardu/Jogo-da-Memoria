@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo da Memória</title>
+    <style>
+        /* CSS Rápido para teste */
+        .memory-game {
+            width: 640px; height: 640px;
+            display: flex; flex-wrap: wrap;
+            margin: auto; perspective: 1000px;
+        }
+        .memory-card {
+            width: calc(25% - 10px); height: calc(33.333% - 10px);
+            margin: 5px; position: relative;
+            transform-style: preserve-3d; transition: transform .5s;
+            background-color: #2c3e50; color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; cursor: pointer; border-radius: 8px;
+        }
+        .memory-card.flip { transform: rotateY(180deg); }
+        .front-face { transform: rotateY(180deg); position: absolute; backface-visibility: hidden; }
+        .back-face { position: absolute; backface-visibility: hidden; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Jogo da Memória</h1>
+    <div class="memory-game">
+        {% for icone in cartas %}
+        <div class="memory-card" data-framework="{{ icone }}">
+            <div class="front-face">{{ icone }}</div>
+            <div class="back-face">?</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.memory-card');
+        function flipCard() { this.classList.toggle('flip'); }
+        cards.forEach(card => card.addEventListener('click', flipCard));
+    </script>
+</body>
+</html>

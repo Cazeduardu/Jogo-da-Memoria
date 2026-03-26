@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from jogo.views import JogoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', JogoView.as_view(), name='jogo'),
 ]

@@ -1,11 +1,13 @@
-from django.views.generic import ListView, TemplateView
-from .models import Partida
-
 class JogoView(TemplateView):
-    template_name = 'jogo/tabuleiro.html'
-
-class RankingView(ListView):
-    model = Partida
-    template_name = 'jogo/ranking.html'
-    context_object_name = 'rankings'
-    paginate_by = 10  # Ponto extra: Paginação
+    # O Django já olha dentro de 'templates' de cada app automaticamente
+    template_name = 'tabuleiro.html' 
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        icones = ['🐍', '⭐', '🚀', '🔥', '💻', '🎮', '🍕', '🌈']
+        # Criar pares e embaralhar
+        import random
+        cartas = icones * 2
+        random.shuffle(cartas)
+        context['cartas'] = cartas
+        return context
